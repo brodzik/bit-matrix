@@ -26,15 +26,12 @@ add_executable(main src/main.cpp ${SOURCE_FILES})
 ########################################
 enable_testing()
 
-add_library(doctest INTERFACE)
-target_include_directories(doctest INTERFACE thirdparty/doctest/include)
-
 add_library(test_main OBJECT test/test_main.cpp ${SOURCE_FILES})
-target_link_libraries(test_main doctest)
+target_include_directories(test_main PUBLIC thirdparty/doctest/include)
 
 macro(add_unit_test testname)
     add_executable(${testname} test/${testname}.cpp $<TARGET_OBJECTS:test_main>)
-    target_link_libraries(${testname} doctest)
+    target_include_directories(${testname} PUBLIC thirdparty/doctest/include)
     add_test(NAME ${testname} COMMAND ${testname})
 endmacro(add_unit_test)
 
