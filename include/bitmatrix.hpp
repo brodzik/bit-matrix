@@ -1,20 +1,18 @@
 #pragma once
 
 #include <cmath>
+#include <cstring>
 
 class BitMatrix
 {
 public:
-    BitMatrix(int row_count, int col_count);
+    BitMatrix(size_t size_x, size_t size_y);
     ~BitMatrix();
 
-    bool setRow(int index, int value);
-    bool setCol(int index, int value);
-
-    int getRow(int index);
-    int getCol(int index);
+    bool getBit(size_t x, size_t y);
+    void setBit(size_t x, size_t y, bool value);
 
 private:
-    int row_count, col_count;
+    size_t size_x, size_y, size_data;
     char *data;
 };

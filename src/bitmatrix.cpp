@@ -1,8 +1,17 @@
 #include "bitmatrix.hpp"
 
-BitMatrix::BitMatrix(int row_count, int col_count)
+BitMatrix::BitMatrix(size_t size_x, size_t size_y)
+    : size_x(size_x)
+    , size_y(size_y)
+    , size_data(std::ceil(size_x * size_y / 8.0))
+    , data(new char[size_data])
 {
-    data = new char[(int)ceil(row_count * col_count / 8.0)];
+    if (size_x <= 0 || size_y <= 0)
+    {
+        throw;
+    }
+
+    std::memset(data, 0, size_data * sizeof(char));
 }
 
 BitMatrix::~BitMatrix()
@@ -10,22 +19,33 @@ BitMatrix::~BitMatrix()
     delete[] data;
 }
 
-bool BitMatrix::setRow(int index, int value)
+bool BitMatrix::getBit(size_t x, size_t y)
 {
-    return false;
+    if (x >= size_x || y >= size_y)
+    {
+        throw;
+    }
+
+    int temp = size_y * y + x;
+
+    return (data[temp / 8] >> (temp % 8)) & 1;
 }
 
-bool BitMatrix::setCol(int index, int value)
+void BitMatrix::setBit(size_t x, size_t y, bool value)
 {
-    return false;
-}
+    if (x >= size_x || y >= size_y)
+    {
+        throw;
+    }
 
-int BitMatrix::getRow(int index)
-{
-    return 0;
-}
+    int temp = size_y * y + x;
 
-int BitMatrix::getCol(int index)
-{
-    return 0;
+    if (value)
+    {
+        data[temp / 8] |= 1 << (temp % 8);
+    }
+    else
+    {
+        data[temp / 8] &= ~(1 << (temp % 8));
+    }
 }

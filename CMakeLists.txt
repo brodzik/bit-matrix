@@ -36,3 +36,5 @@ macro(add_unit_test testname)
 endmacro(add_unit_test)
 
 add_unit_test(test_1)
+add_unit_test(test_2)
+add_unit_test(test_3)
