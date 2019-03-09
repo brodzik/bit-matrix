@@ -14,14 +14,13 @@ public:
     void printRawData();
     void printData();
 
-    bool getBit(size_t x, size_t y);
     void setBit(size_t x, size_t y, bool value);
-
-    unsigned long long getRow(size_t y);
-    unsigned long long getCol(size_t x);
-
     void setRow(size_t y, unsigned long long value);
-    void setCol(size_t x, unsigned long long value);
+    void setColumn(size_t x, unsigned long long value);
+
+    bool getBit(size_t x, size_t y);
+    unsigned long long getRow(size_t y);
+    unsigned long long getColumn(size_t x);
 
 private:
     size_t size_x, size_y, size_data;

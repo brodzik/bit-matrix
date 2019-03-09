@@ -45,32 +45,15 @@ void BitMatrix::printData()
 {
     std::cout << "Formatted data:" << std::endl;
 
-    for (int y = 0; y < size_y; ++y)
+    for (size_t y = 0; y < size_y; ++y)
     {
-        for (int x = 0; x < size_x; ++x)
+        for (size_t x = 0; x < size_x; ++x)
         {
             std::cout << getBit(x, y);
         }
 
         std::cout << std::endl;
     }
-}
-
-bool BitMatrix::getBit(size_t x, size_t y)
-{
-    if (x >= size_x)
-    {
-        throw std::out_of_range("'x' must be less than 'size_x'");
-    }
-
-    if (y >= size_y)
-    {
-        throw std::out_of_range("'y' must be less than 'size_y'");
-    }
-
-    int temp = size_x * y + x;
-
-    return (data[temp / 8] >> (temp % 8)) & 1;
 }
 
 void BitMatrix::setBit(size_t x, size_t y, bool value)
@@ -97,46 +80,6 @@ void BitMatrix::setBit(size_t x, size_t y, bool value)
     }
 }
 
-unsigned long long BitMatrix::getRow(size_t y)
-{
-    if (y >= size_y)
-    {
-        throw std::out_of_range("'y' must be less than 'size_y'");
-    }
-
-    unsigned long long result = 0;
-
-    for (size_t x = 0; x < size_x; ++x)
-    {
-        if (getBit(x, y))
-        {
-            result |= 1 << (size_x - x - 1);
-        }
-    }
-
-    return result;
-}
-
-unsigned long long BitMatrix::getCol(size_t x)
-{
-    if (x >= size_x)
-    {
-        throw std::out_of_range("'x' must be less than 'size_x'");
-    }
-
-    unsigned long long result = 0;
-
-    for (size_t y = 0; y < size_y; ++y)
-    {
-        if (getBit(x, y))
-        {
-            result |= 1 << (size_y - y - 1);
-        }
-    }
-
-    return result;
-}
-
 void BitMatrix::setRow(size_t y, unsigned long long value)
 {
     if (y >= size_y)
@@ -155,7 +98,7 @@ void BitMatrix::setRow(size_t y, unsigned long long value)
     }
 }
 
-void BitMatrix::setCol(size_t x, unsigned long long value)
+void BitMatrix::setColumn(size_t x, unsigned long long value)
 {
     if (x >= size_x)
     {
@@ -171,4 +114,61 @@ void BitMatrix::setCol(size_t x, unsigned long long value)
     {
         setBit(x, y, (value >> (size_y - y - 1)) & 1);
     }
+}
+
+bool BitMatrix::getBit(size_t x, size_t y)
+{
+    if (x >= size_x)
+    {
+        throw std::out_of_range("'x' must be less than 'size_x'");
+    }
+
+    if (y >= size_y)
+    {
+        throw std::out_of_range("'y' must be less than 'size_y'");
+    }
+
+    int temp = size_x * y + x;
+
+    return (data[temp / 8] >> (temp % 8)) & 1;
+}
+
+unsigned long long BitMatrix::getRow(size_t y)
+{
+    if (y >= size_y)
+    {
+        throw std::out_of_range("'y' must be less than 'size_y'");
+    }
+
+    unsigned long long result = 0;
+
+    for (size_t x = 0; x < size_x; ++x)
+    {
+        if (getBit(x, y))
+        {
+            result |= 1ULL << (size_x - x - 1);
+        }
+    }
+
+    return result;
+}
+
+unsigned long long BitMatrix::getColumn(size_t x)
+{
+    if (x >= size_x)
+    {
+        throw std::out_of_range("'x' must be less than 'size_x'");
+    }
+
+    unsigned long long result = 0;
+
+    for (size_t y = 0; y < size_y; ++y)
+    {
+        if (getBit(x, y))
+        {
+            result |= 1ULL << (size_y - y - 1);
+        }
+    }
+
+    return result;
 }
