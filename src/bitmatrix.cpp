@@ -2,6 +2,8 @@
 BitMatrix::BitMatrix(size_t size_x, size_t size_y)
     : size_x(size_x)
     , size_y(size_y)
+    , size_data(std::ceil(size_x * size_y / 8.0))
+    , data(new char[size_data])
 {
     if (size_x == 0)
     {
@@ -13,8 +15,10 @@ BitMatrix::BitMatrix(size_t size_x, size_t size_y)
         throw std::out_of_range("'size_y' cannot be 0");
     }
 
-    size_data = std::ceil(size_x * size_y / 8.0);
-    data = new char[size_data];
+    if (size_data == 0)
+    {
+        throw std::out_of_range("'size_data' cannot be 0");
+    }
 
     std::memset(data, 0, size_data * sizeof(char));
 }
