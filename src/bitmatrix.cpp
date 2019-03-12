@@ -23,9 +23,35 @@ BitMatrix::BitMatrix(size_t size_x, size_t size_y)
     std::memset(data, 0, size_data * sizeof(char));
 }
 
+BitMatrix::BitMatrix(const BitMatrix &rhs)
+    : size_x(rhs.size_x)
+    , size_y(rhs.size_y)
+    , size_data(rhs.size_data)
+    , data(new char[rhs.size_data])
+{
+    std::copy(rhs.data, rhs.data + rhs.size_data, data);
+}
+
 BitMatrix::~BitMatrix()
 {
     delete[] data;
+}
+
+BitMatrix &BitMatrix::operator=(const BitMatrix &rhs)
+{
+    if (this != &rhs)
+    {
+        if (rhs.size_data != size_data)
+        {
+            delete[] data;
+            data = new char[rhs.size_data];
+            size_data = rhs.size_data;
+        }
+
+        std::copy(rhs.data, rhs.data + rhs.size_data, data);
+    }
+
+    return *this;
 }
 
 void BitMatrix::printRawData()

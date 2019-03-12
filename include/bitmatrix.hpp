@@ -9,7 +9,10 @@ class BitMatrix
 {
 public:
     BitMatrix(size_t size_x, size_t size_y);
+    BitMatrix(const BitMatrix &rhs);
     ~BitMatrix();
+
+    BitMatrix &operator=(const BitMatrix &rhs);
 
     void printRawData();
     void printData();
