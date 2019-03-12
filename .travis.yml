@@ -1,21 +1,55 @@
 language: cpp
-compiler: gcc
 
-os: linux
-addons:
-    apt:
-        sources:
+sudo: false
+
+notifications:
+  email: false
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode10.1
+      compiler: clang
+
+    - os: linux
+      dist: xenial
+      addons:
+        apt:
+          packages:
+            - clang-8
+          sources:
+            - llvm-toolchain-xenial-8
+      env: MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
+
+    - os: linux
+      dist: xenial
+      addons:
+        apt:
+          packages: g++-6
+          sources:
             - ubuntu-toolchain-r-test
-        packages:
-            - g++-7
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+
+    - os: linux
+      dist: xenial
+      addons:
+        apt:
+          packages: g++-8
+          sources:
+            - ubuntu-toolchain-r-test
+      env: MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+  - ${CC} --version
+  - ${CXX} --version
+  - cmake --version
 
 before_script:
-    - export CC=gcc-7
-    - export CXX=g++-7
-    - mkdir build
-    - cd build
-    - cmake ..
+  - mkdir build
+  - cd build
+  - cmake ..
 
 script:
-    - make
-    - ctest --output-on-failure
+  - cmake --build . --
+  - ctest --output-on-failure
