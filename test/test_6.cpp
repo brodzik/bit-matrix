@@ -3,16 +3,13 @@
 
 TEST_CASE("set row")
 {
-    BitMatrix bm(10, 5);
+    BitMatrix<10, 5> bm;
 
     bm.setRow(0, 278);
     bm.setRow(1, 515);
     bm.setRow(2, 0);
     bm.setRow(3, 1023);
     bm.setRow(4, 1);
-
-    bm.printRawData();
-    bm.printData();
 
     CHECK(bm.getRow(0) == 278);
     CHECK(bm.getRow(1) == 515);

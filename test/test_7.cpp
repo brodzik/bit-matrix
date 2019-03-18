@@ -3,7 +3,7 @@
 
 TEST_CASE("set column")
 {
-    BitMatrix bm(6, 14);
+    BitMatrix<6, 14> bm;
 
     bm.setColumn(0, 511);
     bm.setColumn(1, 0);

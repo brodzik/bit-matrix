@@ -3,7 +3,7 @@
 
 TEST_CASE("get/set individual bits")
 {
-    BitMatrix bm(3, 5);
+    BitMatrix<3, 5> bm;
 
     bm.setBit(0, 0, true);
     bm.setBit(1, 0, false);
@@ -20,9 +20,6 @@ TEST_CASE("get/set individual bits")
     bm.setBit(0, 4, false);
     bm.setBit(1, 4, true);
     bm.setBit(2, 4, true);
-
-    bm.printRawData();
-    bm.printData();
 
     CHECK(bm.getBit(0, 0) == true);
     CHECK(bm.getBit(1, 0) == false);

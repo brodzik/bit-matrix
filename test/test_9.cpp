@@ -5,7 +5,7 @@ TEST_CASE("assignment")
 {
     SUBCASE("operator")
     {
-        BitMatrix bm(10, 3);
+        BitMatrix<10, 3> bm;
 
         bm.setRow(0, 953);
         bm.setRow(1, 17);
@@ -24,7 +24,7 @@ TEST_CASE("assignment")
 
     SUBCASE("constructor")
     {
-        BitMatrix bm(10, 3);
+        BitMatrix<10, 3> bm;
 
         bm.setRow(0, 953);
         bm.setRow(1, 17);

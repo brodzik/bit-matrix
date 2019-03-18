@@ -2,7 +2,7 @@
 # Configuration
 ########################################
 cmake_minimum_required(VERSION 3.0)
-project(proi-project-2)
+project(bit-matrix)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -Weffc++ -pedantic")
 
@@ -14,19 +14,18 @@ set(HEADER_FILES
 )
 
 set(SOURCE_FILES
-    src/bitmatrix.cpp
 )
 
 include_directories(include)
 
-add_executable(main src/main.cpp ${SOURCE_FILES})
+add_executable(main src/main.cpp) 
 
 ########################################
 # Testing
 ########################################
 enable_testing()
 
-add_library(test_main OBJECT test/test_main.cpp ${SOURCE_FILES})
+add_library(test_main OBJECT test/test_main.cpp)
 target_include_directories(test_main PUBLIC thirdparty/doctest/include)
 
 macro(add_unit_test testname)

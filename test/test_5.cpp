@@ -3,7 +3,7 @@
 
 TEST_CASE("get column")
 {
-    BitMatrix bm(3, 5);
+    BitMatrix<3, 5> bm;
 
     bm.setBit(0, 0, false);
     bm.setBit(1, 0, true);
@@ -20,9 +20,6 @@ TEST_CASE("get column")
     bm.setBit(0, 4, false);
     bm.setBit(1, 4, true);
     bm.setBit(2, 4, false);
-
-    bm.printRawData();
-    bm.printData();
 
     CHECK(bm.getColumn(0) == 12);
     CHECK(bm.getColumn(1) == 21);

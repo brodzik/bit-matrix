@@ -3,10 +3,7 @@
 
 TEST_CASE("initialization")
 {
-    BitMatrix bm(3, 3);
-
-    bm.printRawData();
-    bm.printData();
+    BitMatrix<3, 3> bm;
 
     CHECK(bm.getBit(0, 0) == false);
     CHECK(bm.getBit(1, 0) == false);

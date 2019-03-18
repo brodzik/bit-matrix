@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "bitmatrix.hpp"
 
 int main()

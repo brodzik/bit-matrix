@@ -3,12 +3,9 @@
 
 TEST_CASE("set a single bit")
 {
-    BitMatrix bm(1, 1);
+    BitMatrix<1, 1> bm;
 
     bm.setBit(0, 0, true);
-
-    bm.printRawData();
-    bm.printData();
 
     CHECK(bm.getBit(0, 0) == true);
 }
