@@ -15,7 +15,7 @@ TEST_CASE("assignment")
         CHECK(bm.getRow(1) == 17);
         CHECK(bm.getRow(2) == 1023);
 
-        BitMatrix bm_copy = bm;
+        BitMatrix<10, 3> bm_copy = bm;
 
         CHECK(bm_copy.getRow(0) == 953);
         CHECK(bm_copy.getRow(1) == 17);
@@ -34,7 +34,7 @@ TEST_CASE("assignment")
         CHECK(bm.getRow(1) == 17);
         CHECK(bm.getRow(2) == 1023);
 
-        BitMatrix bm_copy(bm);
+        BitMatrix<10, 3> bm_copy(bm);
 
         CHECK(bm_copy.getRow(0) == 953);
         CHECK(bm_copy.getRow(1) == 17);
