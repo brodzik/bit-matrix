@@ -1,5 +1,14 @@
-# proi-project-2
-[![Build Status](https://travis-ci.org/brodzik/proi-project-2.svg?branch=master)](https://travis-ci.org/brodzik/proi-project-2)
-![GitHub](https://img.shields.io/github/license/brodzik/proi-project-2.svg)
+# Bit Matrix
+Fixed-size matrix of bits implementation.
 
-Bit matrix implementation to store integers.
+## Build status
+[![Build Status](https://travis-ci.org/brodzik/bit-matrix.svg?branch=master)](https://travis-ci.org/brodzik/bit-matrix)
+
+## Building
+```
+> mkdir build
+> cd build
+> cmake ..
+> cmake --build . --
+> ctest --output-on-failure
+```
