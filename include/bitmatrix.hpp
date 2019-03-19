@@ -22,6 +22,69 @@ public:
         }
     }
 
+    BitMatrix operator&(BitMatrix &rhs)
+    {
+        BitMatrix temp;
+
+        for (size_t y = 0; y < size_y; ++y)
+        {
+            for (size_t x = 0; x < size_x; ++x)
+            {
+                temp.setBit(x, y, getBit(x, y) & rhs.getBit(x, y));
+            }
+        }
+
+        return temp;
+    }
+
+    BitMatrix &operator&=(BitMatrix &rhs)
+    {
+        *this = *this & rhs;
+        return *this;
+    }
+
+    BitMatrix operator|(BitMatrix &rhs)
+    {
+        BitMatrix temp;
+
+        for (size_t y = 0; y < size_y; ++y)
+        {
+            for (size_t x = 0; x < size_x; ++x)
+            {
+                temp.setBit(x, y, getBit(x, y) | rhs.getBit(x, y));
+            }
+        }
+
+        return temp;
+    }
+
+    BitMatrix &operator|=(BitMatrix &rhs)
+    {
+        *this = *this | rhs;
+        return *this;
+    }
+
+    BitMatrix operator^(BitMatrix &rhs)
+    {
+        BitMatrix temp;
+
+        for (size_t y = 0; y < size_y; ++y)
+        {
+            for (size_t x = 0; x < size_x; ++x)
+            {
+                temp.setBit(x, y, getBit(x, y) ^ rhs.getBit(x, y));
+            }
+        }
+
+        return temp;
+    }
+
+    BitMatrix &operator^=(BitMatrix &rhs)
+    {
+        *this = *this ^ rhs;
+        return *this;
+    }
+
     void printData()
     {
         for (size_t y = 0; y < size_y; ++y)
