@@ -11,7 +11,15 @@ class BitMatrix
 public:
     BitMatrix()
     {
-        std::memset(data, 0, size_data * sizeof(char));
+        if (size_x == 0)
+        {
+            throw std::out_of_range("'size_x' cannot be 0");
+        }
+
+        if (size_y == 0)
+        {
+            throw std::out_of_range("'size_y' cannot be 0");
+        }
     }
 
     void printData()
@@ -25,6 +33,23 @@ public:
 
             std::cout << std::endl;
         }
+    }
+
+    bool getBit(size_t x, size_t y)
+    {
+        if (x >= size_x)
+        {
+            throw std::out_of_range("'x' must be less than 'size_x'");
+        }
+
+        if (y >= size_y)
+        {
+            throw std::out_of_range("'y' must be less than 'size_y'");
+        }
+
+        int temp = size_x * y + x;
+
+        return (data[temp / 8] >> (temp % 8)) & 1;
     }
 
     void setBit(size_t x, size_t y, bool value)
@@ -51,59 +76,6 @@ public:
         }
     }
 
-    void setRow(size_t y, unsigned long long value)
-    {
-        if (y >= size_y)
-        {
-            throw std::out_of_range("'y' must be less than 'size_y'");
-        }
-
-        if (log2(value) >= size_x)
-        {
-            throw std::out_of_range("'value' must have less than 'size_x' bits");
-        }
-
-        for (size_t x = 0; x < size_x; ++x)
-        {
-            setBit(x, y, (value >> (size_x - x - 1)) & 1);
-        }
-    }
-
-    void setColumn(size_t x, unsigned long long value)
-    {
-        if (x >= size_x)
-        {
-            throw std::out_of_range("'x' must be less than 'size_x'");
-        }
-
-        if (log2(value) >= size_y)
-        {
-            throw std::out_of_range("'value' must have less than 'size_y' bits");
-        }
-
-        for (size_t y = 0; y < size_y; ++y)
-        {
-            setBit(x, y, (value >> (size_y - y - 1)) & 1);
-        }
-    }
-
-    bool getBit(size_t x, size_t y)
-    {
-        if (x >= size_x)
-        {
-            throw std::out_of_range("'x' must be less than 'size_x'");
-        }
-
-        if (y >= size_y)
-        {
-            throw std::out_of_range("'y' must be less than 'size_y'");
-        }
-
-        int temp = size_x * y + x;
-
-        return (data[temp / 8] >> (temp % 8)) & 1;
-    }
-
     unsigned long long getRow(size_t y)
     {
         if (y >= size_y)
@@ -122,6 +94,24 @@ public:
         }
 
         return result;
+    }
+
+    void setRow(size_t y, unsigned long long value)
+    {
+        if (y >= size_y)
+        {
+            throw std::out_of_range("'y' must be less than 'size_y'");
+        }
+
+        if (log2(value) >= size_x)
+        {
+            throw std::out_of_range("'value' must have less than 'size_x' bits");
+        }
+
+        for (size_t x = 0; x < size_x; ++x)
+        {
+            setBit(x, y, (value >> (size_x - x - 1)) & 1);
+        }
     }
 
     unsigned long long getColumn(size_t x)
@@ -144,7 +134,24 @@ public:
         return result;
     }
 
+    void setColumn(size_t x, unsigned long long value)
+    {
+        if (x >= size_x)
+        {
+            throw std::out_of_range("'x' must be less than 'size_x'");
+        }
+
+        if (log2(value) >= size_y)
+        {
+            throw std::out_of_range("'value' must have less than 'size_y' bits");
+        }
+
+        for (size_t y = 0; y < size_y; ++y)
+        {
+            setBit(x, y, (value >> (size_y - y - 1)) & 1);
+        }
+    }
+
 private:
-    size_t size_data = std::ceil(size_x * size_y / 8.0);
-    char data[(size_t)std::ceil(size_x * size_y / 8.0)];
+    char data[size_x * size_y / 8 + 1] = {0};
 };
