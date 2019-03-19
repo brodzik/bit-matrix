@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cmath>
-#include <cstring>
 #include <iostream>
 #include <stdexcept>
 
@@ -139,6 +138,33 @@ public:
         }
     }
 
+    void swapBits(size_t x1, size_t y1, size_t x2, size_t y2)
+    {
+        if (x1 >= size_x)
+        {
+            throw std::out_of_range("'x1' must be less than 'size_x'");
+        }
+
+        if (y1 >= size_y)
+        {
+            throw std::out_of_range("'y1' must be less than 'size_y'");
+        }
+
+        if (x2 >= size_x)
+        {
+            throw std::out_of_range("'x2' must be less than 'size_x'");
+        }
+
+        if (y2 >= size_y)
+        {
+            throw std::out_of_range("'y2' must be less than 'size_y'");
+        }
+
+        bool temp = getBit(x1, y1);
+        setBit(x1, y1, getBit(x2, y2));
+        setBit(x2, y2, temp);
+    }
+
     unsigned long long getRow(size_t y)
     {
         if (y >= size_y)
@@ -177,6 +203,23 @@ public:
         }
     }
 
+    void swapRows(size_t y1, size_t y2)
+    {
+        if (y1 >= size_y)
+        {
+            throw std::out_of_range("'y1' must be less than 'size_y'");
+        }
+
+        if (y2 >= size_y)
+        {
+            throw std::out_of_range("'y2' must be less than 'size_y'");
+        }
+
+        int temp = getRow(y1);
+        setRow(y1, getRow(y2));
+        setRow(y2, temp);
+    }
+
     unsigned long long getColumn(size_t x)
     {
         if (x >= size_x)
@@ -213,6 +256,23 @@ public:
         {
             setBit(x, y, (value >> (size_y - y - 1)) & 1);
         }
+    }
+
+    void swapColumns(size_t x1, size_t x2)
+    {
+        if (x1 >= size_x)
+        {
+            throw std::out_of_range("'x1' must be less than 'size_x'");
+        }
+
+        if (x2 >= size_x)
+        {
+            throw std::out_of_range("'x2' must be less than 'size_x'");
+        }
+
+        int temp = getColumn(x1);
+        setColumn(x1, getColumn(x2));
+        setColumn(x2, temp);
     }
 
 private:
