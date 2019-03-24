@@ -275,6 +275,97 @@ public:
         setColumn(x2, temp);
     }
 
+    class iterator
+    {
+    public:
+        explicit iterator(BitMatrix *_bm, size_t _idx)
+            : bm(_bm)
+            , idx(_idx)
+        {
+        }
+
+        iterator operator+(int x)
+        {
+            idx += x;
+            return *this;
+        }
+
+        iterator &operator++()
+        {
+            ++idx;
+            return *this;
+        }
+
+        iterator operator++(int)
+        {
+            iterator temp = *this;
+            ++(*this);
+            return temp;
+        }
+
+        bool operator==(iterator other) const
+        {
+            return idx == other.idx;
+        }
+
+        bool operator!=(iterator other) const
+        {
+            return !(*this == other);
+        }
+
+    protected:
+        BitMatrix *bm;
+        size_t idx;
+    };
+
+    class row_iterator : public iterator
+    {
+    public:
+        row_iterator(BitMatrix *_bm, size_t _idx)
+            : iterator(_bm, _idx)
+        {
+        }
+
+        unsigned long long operator*() const
+        {
+            return iterator::bm->getRow(iterator::idx);
+        }
+    };
+
+    row_iterator row_begin()
+    {
+        return row_iterator(this, 0);
+    }
+
+    row_iterator row_end()
+    {
+        return row_iterator(this, size_y);
+    }
+
+    class column_iterator : public iterator
+    {
+    public:
+        column_iterator(BitMatrix *_bm, size_t _idx)
+            : iterator(_bm, _idx)
+        {
+        }
+
+        unsigned long long operator*() const
+        {
+            return iterator::bm->getColumn(iterator::idx);
+        }
+    };
+
+    column_iterator column_begin()
+    {
+        return column_iterator(this, 0);
+    }
+
+    column_iterator column_end()
+    {
+        return column_iterator(this, size_x);
+    }
+
 private:
     char data[size_x * size_y / 8 + 1] = {0};
 };
